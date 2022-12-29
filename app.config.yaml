@@ -1,0 +1,9 @@
+app_name: "BTPN Syariah Fullstack Developer"
+base_url: "localhost:8008"
+database:
+  url: postgres://postgres:postgres@localhost:5432/vip_btpns
+  driver: postgres
+enviroment: development
+host:
+  address: localhost
+  port: 8008
