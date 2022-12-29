@@ -65,6 +65,12 @@ func (s *server) Run() {
 	userGroup := s.httpServer.Group("/users")
 	userDelivery.Mount(userGroup)
 
+	photoRepo := repository.NewPhotoRepository(s.cfg)
+	photoUsecase := usecase.NewPhotoUsecase(photoRepo)
+	photoDelivery := delivery.NewPhotoDelivery(photoUsecase)
+	photoGroup := s.httpServer.Group("/photos")
+	photoDelivery.Mount(photoGroup)
+
 	if err := s.httpServer.Start(fmt.Sprintf("%s:%d", s.cfg.ServiceHost(), s.cfg.ServicePort())); err != nil {
 		log.Panic(err)
 	}
