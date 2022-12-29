@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"project/app"
 	"project/config"
 	"project/config/keys"
 	"sync"
@@ -33,7 +34,7 @@ func main() {
 	}
 
 	config := config.NewConfig()
-	server := InitServer(config)
+	server := app.InitServer(config)
 
 	wg := sync.WaitGroup{}
 

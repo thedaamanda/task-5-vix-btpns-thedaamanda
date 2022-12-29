@@ -5,6 +5,7 @@ go 1.19
 require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/go-playground/validator/v10 v10.11.1
+	github.com/jackc/pgconn v1.13.0
 	github.com/labstack/echo v3.3.10+incompatible
 	github.com/rs/zerolog v1.28.0
 	github.com/spf13/viper v1.14.0
@@ -19,7 +20,6 @@ require (
 	github.com/go-playground/universal-translator v0.18.0 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/jackc/chunkreader/v2 v2.0.1 // indirect
-	github.com/jackc/pgconn v1.13.0 // indirect
 	github.com/jackc/pgio v1.0.0 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgproto3/v2 v2.3.1 // indirect

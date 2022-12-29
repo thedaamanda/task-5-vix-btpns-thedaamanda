@@ -1,11 +1,14 @@
-package main
+package app
 
 import (
 	"fmt"
 	"log"
 	"net/http"
 	"project/config"
+	"project/delivery"
 	"project/helpers/validator"
+	"project/repository"
+	"project/usecase"
 
 	validatorEngine "github.com/go-playground/validator/v10"
 
@@ -56,6 +59,12 @@ func InitServer(cfg config.Config) Server {
 }
 
 func (s *server) Run() {
+	userRepo := repository.NewUserRepository(s.cfg)
+	userUsercase := usecase.NewUserUsecase(userRepo)
+	userDelivery := delivery.NewUserDelivery(userUsercase)
+	userGroup := s.httpServer.Group("/users")
+	userDelivery.Mount(userGroup)
+
 	if err := s.httpServer.Start(fmt.Sprintf("%s:%d", s.cfg.ServiceHost(), s.cfg.ServicePort())); err != nil {
 		log.Panic(err)
 	}
