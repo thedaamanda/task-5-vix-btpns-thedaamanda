@@ -29,7 +29,7 @@ func (u *userDelivery) Mount(group *echo.Group) {
 	group.POST("/register", u.RegisterHandler)
 	group.POST("/login", u.LoginHandler)
 	group.PUT("/:id", u.EditUserHandler, customMiddleware.Authentication)
-	group.DELETE("", u.DeleteUserHandler, customMiddleware.Authentication)
+	group.DELETE("/:id", u.DeleteUserHandler, customMiddleware.Authentication)
 }
 
 func (u *userDelivery) RegisterHandler(c echo.Context) error {
@@ -108,7 +108,12 @@ func (u *userDelivery) EditUserHandler(c echo.Context) error {
 func (u *userDelivery) DeleteUserHandler(c echo.Context) error {
 	ctx := c.Request().Context()
 
-	id := helper.GetUserID(c)
+	paramID := c.Param("id")
+
+	id, err := helper.StringToInt(paramID)
+	if err != nil {
+		return helper.ErrorResponse(c, http.StatusBadRequest, "ID must be a number")
+	}
 
 	if err := u.userUsecase.DeleteUser(ctx, id); err != nil {
 		return helper.ErrorResponse(c, http.StatusBadRequest, err.Error())
